@@ -12,6 +12,7 @@ searchform.addEventListener("submit", async (event) => {
     if (searchValue.trim() === "") {
         alert("Skriv in ett sökord");
     }
+    try {
     const url = `https://dummyjson.com/recipes/search?q=${searchValue}`;
     const response = await fetch(url);
     const data = await response.json();
@@ -33,4 +34,9 @@ searchform.addEventListener("submit", async (event) => {
         ul.appendChild(li);
     });
     recipeDiv.appendChild(ul);
+    }
+    catch (error) {
+        console.error = error;
+        alert("Fel vid hämtning av recept");
+    }
 });
