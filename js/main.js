@@ -17,4 +17,9 @@ searchform.addEventListener("submit", async (event) => {
     const data = await response.json();
     if (!data.recipes.length){
     }
+    const recipe = data.recipes[0];
+    console.log(recipe);
+    const recipeDiv = document.createElement("div");
+    recipeDiv.textContent = recipe.name;
+    document.body.appendChild(recipeDiv);
     });
