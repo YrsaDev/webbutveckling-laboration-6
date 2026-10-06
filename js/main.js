@@ -25,4 +25,12 @@ searchform.addEventListener("submit", async (event) => {
     const ingredientsTitle = document.createElement("h2");
     ingredientsTitle.textContent = "Ingredienser";
     recipeDiv.appendChild(ingredientsTitle);
+
+    const ul = document.createElement("ul");
+    recipe.ingredients.forEach((ingredient) => {
+        const li = document.createElement("li");
+        li.textContent = ingredient;
+        ul.appendChild(li);
+    });
+    recipeDiv.appendChild(ul);
 });
