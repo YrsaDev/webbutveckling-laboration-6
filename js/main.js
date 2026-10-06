@@ -15,4 +15,6 @@ searchform.addEventListener("submit", async (event) => {
     const url = `https://dummyjson.com/recipes/search?q=${searchValue}`;
     const response = await fetch(url);
     const data = await response.json();
+    if (!data.recipes.length){
+    }
     });
