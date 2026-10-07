@@ -6,19 +6,16 @@
 // Hämtar sökformuläret
 const search = document.querySelector("#search");
 const searchform = document.querySelector("#searchform");
-// Lyssnar när formuläret skickas
-searchform.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const searchValue = search.value;
-    if (searchValue.trim() === "") {
-        alert("Skriv in ett sökord");
-    }
+async function fetchRecipes(searchValue) {
+    console.log(searchValue);
 // Hämtar recept från API:et    
     try {
         const url = `https://dummyjson.com/recipes/search?q=${searchValue}`;
         const response = await fetch(url);
         const data = await response.json();
         if (!data.recipes.length) {
+        alert("Inget recept hittades");
+        return;
         }
         const recipe = data.recipes[0];
         console.log(recipe);
@@ -48,4 +45,14 @@ searchform.addEventListener("submit", async (event) => {
         console.error = (error);
         alert("Fel vid hämtning av recept");
     }
+    }
+// Lyssnar när formuläret skickas
+searchform.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const searchValue = search.value;
+    if (searchValue.trim() === "") {
+        alert("Skriv in ett sökord");
+        return;
+    }
+    await fetchRecipes(searchValue);
 });
