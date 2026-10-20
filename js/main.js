@@ -22,7 +22,21 @@ async function fetchRecipes(searchValue) {
         const recipeDiv = document.querySelector("#recipe");
         recipeDiv.innerHTML = "";
 // Skapar element för att visa receptet
-        recipeDiv.textContent = recipe.name;
+        const recipeTitle = document.createElement("h3");
+        recipeTitle.textContent = recipe.name;
+        recipeDiv.appendChild(recipeTitle);
+        const recipeImage = document.createElement("img");
+        recipeImage.src = recipe.image;
+        recipeImage.alt = recipe.name;
+        recipeDiv.appendChild(recipeImage);
+        const recipeInfo = document.createElement("div");
+        recipeInfo.className = "recipe-info";
+        recipeInfo.innerHTML = `<p><strong>Förberedningstid:</strong> ${recipe.prepTimeMinutes} minuter</p>
+                                <p><strong>Tillagningstid:</strong> ${recipe.cookTimeMinutes} minuter</p>
+                                <p><strong>Antal portioner:</strong> ${recipe.servings}</p>
+                                <p><strong>Svårighetsgrad:</strong> ${recipe.difficulty}</p>`;
+                                
+        recipeDiv.appendChild(recipeInfo);
         const ingredientsTitle = document.createElement("h2");
         ingredientsTitle.textContent = "Ingredienser";
         recipeDiv.appendChild(ingredientsTitle);
