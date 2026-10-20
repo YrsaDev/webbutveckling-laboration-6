@@ -6,15 +6,21 @@
 // Hämtar sökformuläret
 const search = document.querySelector("#search");
 const searchform = document.querySelector("#searchform");
+const errorMessage = document.querySelector("#error");
+const apiMessage = document.querySelector("#message");
 async function fetchRecipes(searchValue) {
     console.log(searchValue);
 // Hämtar recept från API:et    
     try {
         const url = `https://dummyjson.com/recipes/search?q=${searchValue}`;
         const response = await fetch(url);
+        if (!response.ok) {
+        throw new Error("API-anropet misslyckades");
+        }
         const data = await response.json();
         if (!data.recipes.length) {
-        alert("Inget recept hittades");
+        apiMessage.textContent = "Inget recept hittades";
+        document.querySelector("#recipe").innerHTML = "";
         return;
         }
         const recipe = data.recipes[0];
@@ -61,16 +67,19 @@ async function fetchRecipes(searchValue) {
     }
 // Hanterar fel vid hämtning av recept
     catch (error) {
-        console.error = (error);
-        alert("Fel vid hämtning av recept");
+        console.error=(error);
+        apiMessage.textContent = "Fel vid hämtning av recept";
+        document.querySelector("#recipe").innerHTML = "";
     }
     }
 // Lyssnar när formuläret skickas
 searchform.addEventListener("submit", async (event) => {
     event.preventDefault();
     const searchValue = search.value;
+    errorMessage.textContent = "";
+    apiMessage.textContent = "";
     if (searchValue.trim() === "") {
-        alert("Skriv in ett sökord");
+    errorMessage.textContent = "Skriv in ett sökord";
         return;
     }
     await fetchRecipes(searchValue);
