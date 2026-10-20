@@ -48,6 +48,16 @@ async function fetchRecipes(searchValue) {
             ul.appendChild(li);
         });
         recipeDiv.appendChild(ul);
+        const instructionsTitle = document.createElement("h4");
+        instructionsTitle.textContent = "Instruktioner";
+        recipeDiv.appendChild(instructionsTitle);
+        const instructionsList = document.createElement("ol");
+        recipe.instructions.forEach((instruction) => {
+            const li = document.createElement("li");
+            li.textContent = instruction;
+            instructionsList.appendChild(li);
+        });
+        recipeDiv.appendChild(instructionsList);
     }
 // Hanterar fel vid hämtning av recept
     catch (error) {
