@@ -8,24 +8,8 @@ const search = document.querySelector("#search");
 const searchform = document.querySelector("#searchform");
 const errorMessage = document.querySelector("#error");
 const apiMessage = document.querySelector("#message");
-async function fetchRecipes(searchValue) {
-    console.log(searchValue);
-// Hämtar recept från API:et    
-    try {
-        const url = `https://dummyjson.com/recipes/search?q=${searchValue}`;
-        const response = await fetch(url);
-        if (!response.ok) {
-        throw new Error("API-anropet misslyckades");
-        }
-        const data = await response.json();
-        if (!data.recipes.length) {
-        apiMessage.textContent = "Inget recept hittades";
-        document.querySelector("#recipe").innerHTML = "";
-        return;
-        }
-        const recipe = data.recipes[0];
-        console.log(recipe);
-        const recipeDiv = document.querySelector("#recipe");
+function displayRecipe(recipe) {
+            const recipeDiv = document.querySelector("#recipe");
         recipeDiv.innerHTML = "";
 // Skapar element för att visa receptet
         const recipeTitle = document.createElement("h3");
@@ -64,10 +48,30 @@ async function fetchRecipes(searchValue) {
             instructionsList.appendChild(li);
         });
         recipeDiv.appendChild(instructionsList);
+}
+async function fetchRecipes(searchValue) {
+    console.log(searchValue);
+// Hämtar recept från API:et    
+    try {
+        const url = `https://dummyjson.com/recipes/search?q=${searchValue}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+        throw new Error("API-anropet misslyckades");
+        }
+        const data = await response.json();
+        if (!data.recipes.length) {
+        apiMessage.textContent = "Inget recept hittades";
+        document.querySelector("#recipe").innerHTML = "";
+        return;
+        }
+        const recipe = data.recipes[0];
+        displayRecipe(recipe);
+        console.log(recipe);
+
     }
 // Hanterar fel vid hämtning av recept
     catch (error) {
-        console.error=(error);
+        console.error(error);
         apiMessage.textContent = "Fel vid hämtning av recept";
         document.querySelector("#recipe").innerHTML = "";
     }
