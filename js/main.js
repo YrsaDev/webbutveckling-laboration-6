@@ -19,15 +19,10 @@ async function fetchRecipes(searchValue) {
         }
         const recipe = data.recipes[0];
         console.log(recipe);
-        const recipeDiv = document.createElement("div");
-        recipeDiv.id = "recipe";
-        const oldRecipe = document.querySelector("#recipe");
-        if (oldRecipe) {
-            oldRecipe.remove();
-        }
+        const recipeDiv = document.querySelector("#recipe");
+        recipeDiv.innerHTML = "";
 // Skapar element för att visa receptet
         recipeDiv.textContent = recipe.name;
-        document.body.appendChild(recipeDiv);
         const ingredientsTitle = document.createElement("h2");
         ingredientsTitle.textContent = "Ingredienser";
         recipeDiv.appendChild(ingredientsTitle);
