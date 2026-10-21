@@ -9,16 +9,18 @@ const searchform = document.querySelector("#searchform");
 const errorMessage = document.querySelector("#error");
 const apiMessage = document.querySelector("#message");
 function displayRecipe(recipe) {
-            const recipeDiv = document.querySelector("#recipe");
+        const recipeDiv = document.querySelector("#recipe");
         recipeDiv.innerHTML = "";
+        const recipeArticle = document.createElement("article");
+        recipeDiv.appendChild(recipeArticle);   
 // Skapar element för att visa receptet
         const recipeTitle = document.createElement("h3");
         recipeTitle.textContent = recipe.name;
-        recipeDiv.appendChild(recipeTitle);
+        recipeArticle.appendChild(recipeTitle);
         const recipeImage = document.createElement("img");
         recipeImage.src = recipe.image;
         recipeImage.alt = recipe.name;
-        recipeDiv.appendChild(recipeImage);
+        recipeArticle.appendChild(recipeImage);
         const recipeInfo = document.createElement("div");
         recipeInfo.className = "recipe-info";
         recipeInfo.innerHTML = `<p><strong>Förberedningstid:</strong> ${recipe.prepTimeMinutes} minuter</p>
@@ -26,10 +28,10 @@ function displayRecipe(recipe) {
                                 <p><strong>Antal portioner:</strong> ${recipe.servings}</p>
                                 <p><strong>Svårighetsgrad:</strong> ${recipe.difficulty}</p>`;
                                 
-        recipeDiv.appendChild(recipeInfo);
+        recipeArticle.appendChild(recipeInfo);
         const ingredientsTitle = document.createElement("h2");
         ingredientsTitle.textContent = "Ingredienser";
-        recipeDiv.appendChild(ingredientsTitle);
+        recipeArticle.appendChild(ingredientsTitle);
 
         const ul = document.createElement("ul");
         recipe.ingredients.forEach((ingredient) => {
@@ -37,17 +39,17 @@ function displayRecipe(recipe) {
             li.textContent = ingredient;
             ul.appendChild(li);
         });
-        recipeDiv.appendChild(ul);
+        recipeArticle.appendChild(ul);
         const instructionsTitle = document.createElement("h4");
         instructionsTitle.textContent = "Instruktioner";
-        recipeDiv.appendChild(instructionsTitle);
+        recipeArticle.appendChild(instructionsTitle);
         const instructionsList = document.createElement("ol");
         recipe.instructions.forEach((instruction) => {
             const li = document.createElement("li");
             li.textContent = instruction;
             instructionsList.appendChild(li);
         });
-        recipeDiv.appendChild(instructionsList);
+        recipeArticle.appendChild(instructionsList);
 }
 async function fetchRecipes(searchValue) {
     console.log(searchValue);
