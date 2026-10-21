@@ -29,7 +29,7 @@ function displayRecipe(recipe) {
                                 <p><strong>Svårighetsgrad:</strong> ${recipe.difficulty}</p>`;
                                 
         recipeArticle.appendChild(recipeInfo);
-        const ingredientsTitle = document.createElement("h2");
+        const ingredientsTitle = document.createElement("h4");
         ingredientsTitle.textContent = "Ingredienser";
         recipeArticle.appendChild(ingredientsTitle);
 
@@ -86,6 +86,7 @@ searchform.addEventListener("submit", async (event) => {
     apiMessage.textContent = "";
     if (searchValue.trim() === "") {
     errorMessage.textContent = "Skriv in ett sökord";
+    document.querySelector("#recipe").innerHTML = "";
         return;
     }
     await fetchRecipes(searchValue);
